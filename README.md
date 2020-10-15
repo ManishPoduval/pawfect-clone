@@ -112,9 +112,17 @@ Messages
     -renders info page about pawfect
 
 # Create Event
+  -GET /createevent
+    -allows users to make own events
+  -POST /createevent
+
 
 # Event Details 
+- GET /event/:id
+- GET /event/:id/edit
+    -allows users to edit event
 
+- POST / event/:id/edit
 
   
   
