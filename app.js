@@ -10,14 +10,8 @@ const logger       = require('morgan');
 const path         = require('path');
 
 
-mongoose
-  .connect('mongodb://localhost/pawfect', {useNewUrlParser: true})
-  .then(x => {
-    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
-  })
-  .catch(err => {
-    console.error('Error connecting to mongo', err);
-  });
+require('./configs/db.config')
+
 
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
@@ -44,6 +38,24 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
+//set up the session(cookies)
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+
+
+app.use(session({
+  secret: 'foo', 
+  saveUninitialized: false, 
+  resave: false, 
+  cookie : {
+    maxAge: 24*60*60*1000 
+  }, 
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection, 
+    ttl: 24*60*60
+  })
+  
+}));
 
 
 // default value for title local
@@ -54,5 +66,7 @@ app.locals.title = 'Express - Generated with IronGenerator';
 const index = require('./routes/index');
 app.use('/', index);
 
+const authRoutes = require('./routes/auth.routes')
+app.use('/', authRoutes)
 
 module.exports = app;
