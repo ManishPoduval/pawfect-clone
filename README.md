@@ -1,9 +1,9 @@
 
-# Pawfect
+# MeetPup   
 
 ## Description
 
-Describe your project in one/two lines.
+Meetpup is a platform for finding your "pawfect" event for your pup. You can meet new friends, create new relationships and expand your dog community. You can create your own events or attend those in your area. It's time to find your furr-ever best friend! 
  
 ## User Stories
 
@@ -13,11 +13,11 @@ Describe your project in one/two lines.
 - **sign up** - As a user I want to sign up on the webpage so that I can see all the events that I could attend
 - **login** - As a user I want to be able to log in on the webpage so that I can get back to my account
 - **logout** - As a user I want to be able to log out from the webpage so that I can make sure no one will access my account
--**create owner profile
--** create pet profile**
--** edit profile(s)**
--** search pet(s)**
--** search owner(s)**
+- **create owner profile**
+- **create pet profile**
+- **edit profile(s)**
+- **search pet(s)**
+- **search owner(s)**
 -**leave a message**
 -**past messages**
 -**about pawfect**
@@ -31,23 +31,17 @@ List of other features outside of the MVPs scope
 
 Geo Location:
 - See accurate user distance between pets/people
-- see distance between users and pets 
+- see distance between users and major events
 
 
 Messages
 - chat feature 
   -unread messages?
   
-  
-Meet pup 
--create events
--view upcoming events
-- sign up for future events 
-
 
 ## ROUTES:
 
-#Landing
+## Landing
 - GET / 
   - renders the homepage
 - GET /auth/signup
@@ -72,13 +66,13 @@ Meet pup
 - POST /auth/logout
   - body: (empty)
 
-#Search
+## Search-events
 - GET/search
   - render search page with filters 
 - POST/search
   - getting information from database
  
- #Messages
+ ## Messages
  -GET /chat
   -rendering chat logs 
  -Get /chat/:id
@@ -86,7 +80,7 @@ Meet pup
  -POST /chat/:id
   - sending message in particular chat 
   
-  #Profile Person
+## Profile-Person
   - GET /profile/:id
     -renders profile (yours with link to edit)
   - GET /profile/:id/edit
@@ -103,7 +97,7 @@ Meet pup
     -redirects back into edit page 
     -alert that password changed 
     
-  # Pet Profiles
+## Pet Profiles
   
   - GET /petprofile/:id
     - renders pet profile 
@@ -113,9 +107,15 @@ Meet pup
   - POST /petprofile/:id/edit
     -redirects back into pet profile with banner of update 
   
-  # About Pawfect
+  # About Meetpup
   -GET /about 
     -renders info page about pawfect
+
+# Create Event
+
+# Event Details 
+
+
   
   
 ## Models
@@ -164,10 +164,35 @@ PetModel
     owner: {
         {
             type: Schema.Types.ObjectId, 
-            ref: "owners"
+            ref: "owner"
         }
     }
-
+EventModel
+    name: {
+      type: String,
+      required: true
+    },
+    about: {
+      type: String,
+      required: true
+    },
+    location: {
+      type: String,
+      required: true
+    },
+    attendees {
+        {
+            type: Schema.Types.ObjectId, 
+            ref: "owner"
+        }
+    },
+    time: {
+      type: time, 
+      required: true 
+    },
+    duration: {
+      type: time
+    }
 
 ## Links
 
