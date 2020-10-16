@@ -195,11 +195,11 @@ EventModel
         }
     },
     time: {
-      type: time, 
+      type: date, 
       required: true 
     },
     duration: {
-      type: time
+      type: Number
     }
 
 ## Links
