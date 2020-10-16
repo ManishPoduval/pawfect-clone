@@ -1,0 +1,16 @@
+<h3>Edit your profile</h3>
+
+<form method="POST" action="/profile/edit">
+  <label>Name</label>
+  <input type="text" name="name" value="{{userData.name}}" >
+  <br>
+  <label>Location</label>
+  <input type="text" name="location" value="{{userData.location}}" >
+   <br>
+  <label>Email</label>
+  <input type="email" name="email" value="{{userData.email}}" >
+   <br>
+  <button type="submit" >Edit profile</button>
+</form>
+
+<a href="/profile/edit/password">Change password</a>

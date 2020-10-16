@@ -3,6 +3,8 @@ const router = express.Router();
 var bcrypt = require("bcryptjs");
 const UserModel = require("../model/User.model");
 
+
+
 router.get("/signup", (req, res) => {
   res.render("auth/signup.hbs");
 });
@@ -59,8 +61,6 @@ router.post("/signup", (req, res) => {
       bcrypt
         .hash(password, salt)
         .then((hashedPassword) => {
-          console.log("Pass is ", hashedPassword);
-
           UserModel.create({
             name,
             location,
@@ -123,17 +123,21 @@ router.post("/signin", (req, res) => {
 });
 
 router.get('/dummy', (req, res) => {
-  res.render('dummy.hbs', { name: req.session.loggedInUser.name })
-})
+  res.render('dummy.hbs', { name: req.session.loggedInUser.name });
+});
 
 
 router.get('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err){
-      return console.log(err)
+      return console.log(err);
     } 
-    res.redirect('/signin')
-  })
-})
+    res.redirect('/loggedout');
+  });
+});
+
+router.get("/loggedout", (req, res) => {
+  res.render("auth/logout.hbs");
+});
 
 module.exports = router;
