@@ -5,4 +5,15 @@ body {
 a {
   color: #00B7FF; }
 
+.buttons {
+  display: flex;
+  justify-content: flex-end; }
+
+.headerpic {
+  height: 500px;
+  width: 500px; }
+
+#navbarCollapse {
+  float: right; }
+
 /*# sourceMappingURL=style.css.map */

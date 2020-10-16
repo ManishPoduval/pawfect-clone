@@ -10,7 +10,7 @@ const logger       = require('morgan');
 const path         = require('path');
 
 
-require('./configs/db.config');
+require('./configs/db.config')
 
 
 const app_name = require('./package.json').name;
@@ -59,17 +59,14 @@ app.use(session({
 
 
 // default value for title local
-app.locals.title = 'Panda';
+app.locals.title = 'Meet Pup';
 
 
 
 const index = require('./routes/index');
 app.use('/', index);
 
-const authRoutes = require('./routes/auth.routes');
-app.use('/', authRoutes);
-
-const profileRoutes = require("./routes/profile.routes");
-app.use("/", profileRoutes);
+const authRoutes = require('./routes/auth.routes')
+app.use('/', authRoutes)
 
 module.exports = app;
