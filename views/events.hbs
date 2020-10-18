@@ -5,6 +5,9 @@
   <li>{{date}} - {{title}} - {{type}} - {{location}}</li>
   <br>
   <div class="button-link">
+      <a href="/event-details/{{ this.id }}">
+      <button type="submit" class="btn btn-primary">More Details</button>
+    </a>
     <a href="/event/{{ this._id }}/edit">
       <button type="submit" class="btn btn-primary">Edit</button>
     </a>

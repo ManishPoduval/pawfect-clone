@@ -19,6 +19,13 @@ const eventSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    // picture: {
+    //   // type: Array???
+    // }, 
+    // description: {
+    //   type: String, 
+    //   // required: true
+    // },
   },
   {
     timestamps: true,

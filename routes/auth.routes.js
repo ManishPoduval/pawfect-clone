@@ -174,7 +174,9 @@ router.post("/create-event", (req, res) => {
     title,
     location,
     date,
-    type
+    type, 
+    // picture,
+    // description
   })
     .then(() => {
       res.redirect("/");
