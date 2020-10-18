@@ -101,7 +101,7 @@ router.post("/signin", (req, res) => {
         .then((result) => {
           if (result) {
             req.session.loggedInUser = userData;
-            res.redirect("/dummy");
+            res.redirect("/profile");
           } else {
             res
               .status(500)
@@ -122,6 +122,9 @@ router.post("/signin", (req, res) => {
         });
     });
 });
+
+
+//EVENTS 
 
 router.get("/create-event", (req, res) => {
   res.render("create-event.hbs");

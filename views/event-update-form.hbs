@@ -1,0 +1,34 @@
+{{!-- EDIT EVENT --}}
+<form method="POST" action="/event/{{ event.id }}/edit">
+
+  <div class="field">
+    <label>Title</label>
+    <div class="input"><input value="{{event.title}}" type="text" name="title"  ></div>
+  </div>
+
+  <div class="field">
+    <label>Location</label>
+    <div class="input"><input value="{{event.location}}" type="text" name="location"  ></div>
+  </div>
+
+  <div class="field">
+    <label>Date</label>
+    <div class="input"><input value="{{event.date}}" type="date" name="date"  ></div>
+  </div>
+
+  <div class="field">
+    <label>Type</label>
+    <div class="input">    <select name="type">
+      <option>Active</option>
+      <option>Training</option>
+      <option>Relaxed meetup</option>
+      <option>Socialization</option>
+    </select></div>
+  </div>
+
+  <button type="submit" >Update event</button>
+</form>
+
+{{#if message}}
+  <div class="error">{{message}}</div>
+{{/if}}
