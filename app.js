@@ -66,7 +66,10 @@ app.locals.title = 'Meet Pup';
 const index = require('./routes/index');
 app.use('/', index);
 
-const authRoutes = require('./routes/auth.routes')
-app.use('/', authRoutes)
+const authRoutes = require('./routes/auth.routes');
+app.use('/', authRoutes);
+
+const profileRoutes = require("./routes/profile.routes");
+app.use("/", profileRoutes);
 
 module.exports = app;
