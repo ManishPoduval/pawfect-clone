@@ -1,9 +1,78 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
+/* reset standard browser properties that might get in the way */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box; }
+
+ul {
+  list-style-position: inside; }
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="email"],
+select {
+  border: 1px solid #ddd;
+  padding: 10px 12px;
+  color: black; }
+
+html {
+  background: #eee; }
 
 a {
-  color: #00B7FF; }
+  color: #d0b240;
+  text-decoration: none; }
+
+header {
+  height: 64px;
+  background: #123c44;
+  color: white;
+  position: relative; }
+  header figure {
+    position: absolute;
+    left: 0;
+    height: 100%; }
+    header figure img {
+      height: 100%; }
+  header nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%; }
+    header nav a {
+      padding: 0 24px;
+      border-right: 1px solid #ffffff1c;
+      display: flex;
+      height: 100%;
+      align-items: center; }
+
+form {
+  margin-bottom: 32px; }
+  form .field {
+    display: flex;
+    margin-top: 8px;
+    margin-bottom: 8px; }
+    form .field label {
+      flex-basis: 240px;
+      flex-shrink: 0; }
+    form .field .input {
+      width: 240px; }
+      form .field .input > * {
+        width: 100%; }
+
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
+
+main {
+  max-width: 960px;
+  padding: 24px;
+  margin: 0 auto;
+  background: white;
+  margin-top: 24px;
+  margin-bottom: 24px; }
+  main h1 {
+    margin-top: 16px;
+    margin-bottom: 24px; }
 
 .buttons {
   display: flex;
@@ -15,5 +84,11 @@ a {
 
 #navbarCollapse {
   float: right; }
+
+footer {
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
 
 /*# sourceMappingURL=style.css.map */

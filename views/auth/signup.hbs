@@ -1,20 +1,32 @@
 {{!-- //Signup for - always method=POST - action=/signup - name attribute for the DB - Submit button --}}
+
+<h1>Sign up</h1>
 <form method="POST" action="/signup">
-  <label>Name</label>
-  <input type="text" name="name" placeholder="Name"  >
-  <br>
-  <label>Location</label>
-  <input type="text" name="location" placeholder="Enter your location"  >
-   <br>
-  <label>Email</label>
-  <input type="email" name="email" placeholder="Enter your email"  >
-   <br>
-  <label>Password</label>
-  <input type="password" name="password" placeholder="Enter your Password"  >
-   <br>
-  <label>Confirm your password</label>
-  <input type="password" name="confirmpassword" placeholder="Confirm your password"  >
-  <br>
+  <div class="field">
+    <label>Name</label>
+    <div class="input"><input type="text" name="name" placeholder="Name"  ></div>
+  </div>
+
+  <div class="field">
+    <label>Location</label>
+    <div class="input"><input type="text" name="location" placeholder="Enter your location"  ></div>
+  </div>
+
+  <div class="field">
+    <label>Email</label>
+    <div class="input"><input type="email" name="email" placeholder="Enter your email"  ></div>
+  </div>
+
+  <div class="field">
+    <label>Password</label>
+    <div class="input"><input type="password" name="password" placeholder="Enter your Password"  ></div>
+  </div>
+
+  <div class="field">
+    <label>Confirm your password</label>
+    <div class="input"><input type="password" name="confirmpassword" placeholder="Confirm your password"  ></div>
+  </div>
+
   <button type="submit" >Sign Up</button>
 </form>
 
