@@ -4,26 +4,40 @@
   <li>{{ eventsData.date }} - {{ eventsData.location }}</li>
 </ul>
 <br>
+<h2>Event Description</h2>
+<p>{{ eventsData.description }} </p>
+<br>
 <h4>TODO For Event Details</h4>
 <ul>
   <li>Add a picture of the event</li>
-  <li>Add a short description</li>
   <li>Add the max number of dogs accepted</li>
   <li>Change time format</li>
 </ul>
+<br>
 
 {{!-- <img class="event-picture"
      src="{{ eventsData.picture }}"
      alt= "{{ eventsData.title }} picture" > --}}
+<div class="button-section">
+    <a href="/event-registration/{{ eventsData._id }}">
+      <button type="button" class="btn btn-primary">Register Now</button>
+    </a>
+
 
 {{#if user }}
-<a href="/event/{{ this._id }}/edit">
+<a href="/event/{{ eventsData._id }}/edit">
   <button type="submit" class="btn btn-primary">Edit</button>
 </a>
 
-<form method="POST" action="/event/{{ this._id }}/delete">
-  <a href="/event/{{ this._id }}/delete">
+
+<form method="POST" action="/event/{{ eventsData._id }}/delete">
+  <a href="/event/{{ eventsData._id }}/delete">
     <button type="submit" class="btn btn-primary">Delete</button>
   </a>
 </form>
 {{/if}}
+
+<a href="/events">
+  <button type="submit" class="btn btn-primary">All Events</button>
+</a>
+</div>

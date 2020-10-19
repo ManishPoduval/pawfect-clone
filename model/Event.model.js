@@ -21,15 +21,20 @@ const eventSchema = new mongoose.Schema(
     user: { //this is the key name in the evnt model
           type: mongoose.Schema.Types.ObjectId, 
           ref: "User"//refers to the collection name
-    }
+    },
+    attendEvent: {
+      type: [ mongoose.Schema.Types.ObjectId ], 
+      ref: "User",
+      unique: true // to only register once
+    },
+    picture: {
+      type: String
+    }, 
 
-    // picture: {
-    //   // type: String
-    // }, 
-    // description: {
-    //   type: String, 
-    //   // required: true
-    // }
+    description: {
+      type: String
+      // required: true
+    }
   },
   {
     timestamps: true,

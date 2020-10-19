@@ -3,44 +3,48 @@
 
   <div class="field">
     <label>Title</label>
-    <div class="input"><input type="text" name="title" placeholder="Title of event"  ></div>
+    <div class="input"><input type="text" name="title" placeholder="Title of event"></div>
   </div>
 
   <div class="field">
     <label>Location</label>
-    <div class="input"><input type="text" name="location" placeholder="Enter your location"  ></div>
+    <div class="input"><input type="text" name="location" placeholder="Enter your location"></div>
   </div>
 
   <div class="field">
     <label>Date</label>
-    <div class="input"><input type="date" name="date"  ></div>
+    <div class="input"><input type="date" name="date"></div>
   </div>
 
   <div class="field">
     <label>Type</label>
-    <div class="input">    <select name="type">
-      <option>Active</option>
-      <option>Training</option>
-      <option>Relaxed meetup</option>
-      <option>Socialization</option>
-    </select></div>
+    <div class="input"> <select name="type">
+        <option>Active</option>
+        <option>Training</option>
+        <option>Relaxed meetup</option>
+        <option>Socialization</option>
+      </select></div>
   </div>
 
-  {{!-- <div class="field">
+  <div class="field">
     <label>Description</label>
-    <div class="input"><input type="text" name="description" placeholder="Description of event"  ></div>
+    <div class="input">
+      <textarea class="description-box" name="description" placeholder="Description of event" cols="40"
+        rows="5"></textarea>
+      {{!-- <input class="description-box" type="textarea" rows="5" name="description" placeholder="Description of event" maxlength="500"> --}}
+    </div>
+  </div>
+
+  {{!-- <div>
+    <label for="avatar">Choose a event picture</label>
+    <br>
+    <input type="file" id="downloadeventpic" name="event-pic" accept="image/png, image/jpeg">
   </div> --}}
-{{!-- <div>
-  <label for="avatar">Choose a event picture</label>
-<br>
-<input type="file"
-       id="downloadeventpic" name="event-pic"
-       accept="image/png, image/jpeg">
-</div> --}}
-<br>
-  <button type="submit" >Create event</button>
+
+  <br>
+  <button type="submit">Create event</button>
 </form>
 
 {{#if message}}
-  <div class="error">{{message}}</div>
+<div class="error">{{message}}</div>
 {{/if}}

@@ -4,12 +4,20 @@
   {{#each events}}
   <li>{{date}} - {{title}} - {{type}} - {{location}}</li>
   <br>
-  <div class="button-link">
+  <div class="button-section">
     <a href="/event-details/{{ this.id }}">
       <button type="button" class="btn btn-primary">More Details</button>
     </a>
-  </div>
+    <br>
+    <br>
+    <a href="/event-registration/{{ this._id }}">
+      <button type="button" class="btn btn-primary">Register Now</button>
+    </a>
+    <br>
+    <br>
   {{/each}}
-  <br>
-  <br>
 </ul>
+
+{{#if registrationMessage}}
+  <div class="error">{{registrationMessage}}</div>
+{{/if}}

@@ -31,7 +31,7 @@ router.get("/events", (req, res) => {
 });
 
 router.post("/create-event", (req, res) => {
-  const { title, location, date, type } = req.body;
+  const { title, location, date, type, description } = req.body;
 
   if (!title || !location || !date || !type) {
     res.status(500).render("create-event.hbs", {
@@ -58,7 +58,8 @@ router.post("/create-event", (req, res) => {
     type,
     user: newUser,
     // picture,
-    // description
+    description
+    // attendEvent: [ mongoose.Schema.Types.ObjectId ]
   })
     .then(() => {
       res.redirect("/");
@@ -75,13 +76,10 @@ router.post("/create-event", (req, res) => {
 // GET route to show the form to update a single event.
 router.get("/event/:id/edit", (req, res, next) => {
   const { id } = req.params;
-  // console.log("this is my req.paramas", req.params);
-  // console.log("this is my id", { id });
 
   // findById method will obtain the information of the event to show in the update form view
   EventModel.findById(id).then((event) => {
-    console.log("Event Edit", event);
-    console.log(event.user);
+    // console.log(event.user);
     res.render("event-update-form.hbs", { event });
   });
 });
@@ -93,7 +91,10 @@ router.post("/event/:id/edit", (req, res, next) => {
   // findByIdAndUpdate will use the information passed from the request body (create event form) to update the event
   EventModel.findByIdAndUpdate(id, { $set: req.body })
     .then((event) => {
-      console.log(`Event ${event.name} updated`);
+      // console.log("event is: ", event);
+      // console.log("id is: ", id);
+      // console.log("req.body is: ", req.body);
+      // console.log(`Event ${event.title} updated`);
       res.redirect("/events");
     })
     .catch((err) => {
@@ -106,7 +107,6 @@ router.post("/event/:id/edit", (req, res, next) => {
 router.post("/event/:id/delete", (req, res, next) => {
   const { id } = req.params;
 
-  // findByIdAndDelete will delete the event with the passed id
   EventModel.findByIdAndDelete(id)
     .then((event) => {
       console.log(`Event ${event.title} deleted`);
@@ -139,5 +139,23 @@ router.get("/event-details/:id", (req, res) => {
       console.log("There is an error", err);
     });
 });
+
+
+//REGISTER TO AN EVENT 
+router.get("/event-registration/:id", (req, res, next) => {
+  const { id } = req.params;
+
+  EventModel.findByIdAndUpdate(id, {$push: { attendEvent: req.session.loggedInUser._id }})
+  .then((event) => {
+
+    console.log("Registered to Event: ", event);
+    res.render("event-registration.hbs", { event });
+  })
+  .catch((err) => {
+    console.log("There is an error", err);
+    res.redirect("/events", { registrationMessage: "Sorry, we were anable to register you for the event. You may tray later." });
+  });
+}); 
+
 
 module.exports = router;
