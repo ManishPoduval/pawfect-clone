@@ -75,4 +75,9 @@ app.use("/", profileRoutes);
 const eventsRoutes = require("./routes/events.routes");
 app.use("/", eventsRoutes);
 
+const apiRoutes = require("./routes/api.routes");
+app.use("/", apiRoutes);
+
+
+
 module.exports = app;
