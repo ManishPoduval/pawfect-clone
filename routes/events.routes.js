@@ -16,9 +16,9 @@ router.get("/events", (req, res) => {
     sort: { date: "asc" },
   })
     .then((eventsData) => {
-      //console.log(req.session.loggedInUser._id)
-      //console.log(eventsData[0].user);
-
+      // console.log("req.session.loggedInUser._id is: ", req.session.loggedInUser._id)
+      // console.log("eventsData[0].user is: ", eventsData[0].user);
+      
       res.render("events.hbs", { events: eventsData });
     })
     .catch((err) => {
@@ -91,10 +91,6 @@ router.post("/event/:id/edit", (req, res, next) => {
   // findByIdAndUpdate will use the information passed from the request body (create event form) to update the event
   EventModel.findByIdAndUpdate(id, { $set: req.body })
     .then((event) => {
-      // console.log("event is: ", event);
-      // console.log("id is: ", id);
-      // console.log("req.body is: ", req.body);
-      // console.log(`Event ${event.title} updated`);
       res.redirect("/events");
     })
     .catch((err) => {
@@ -123,14 +119,14 @@ router.get("/event-details/:id", (req, res) => {
     .populate("user")
     .then((eventsData) => {
       // console.log("THIS IS EVENT DATA", eventsData);
-      // console.log(`THIS IS EVENT ${eventsData.user} DETAILS`);
+      // console.log(`THIS IS ${eventsData.user} DETAILS`);
       //console.log(req.session.loggedInUser._id === eventsData.user._id)
       //console.log(eventsData)
       if (
         JSON.stringify(req.session.loggedInUser._id) ===
         JSON.stringify(eventsData.user._id)
       ) {
-        res.render("event-details.hbs", { eventsData, user: true });
+        res.render("event-details.hbs", { eventsData, user: true});
       } else {
         res.render("event-details.hbs", { eventsData });
       }
@@ -157,5 +153,15 @@ router.get("/event-registration/:id", (req, res, next) => {
   });
 }); 
 
+
+
+
+
+
+//CANCEL event registration ROUTE
+router.get("/event-cancel-registration/:id", (req, res, next) => {
+  const { id } = req.params;
+
+}); 
 
 module.exports = router;
