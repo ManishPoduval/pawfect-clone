@@ -9,7 +9,6 @@ const eventSchema = new mongoose.Schema(
     location: {
       type: String,
       required: true,
-      unique: true,
     },
     date: {
       type: Date,
@@ -19,20 +18,18 @@ const eventSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    // user: {
-    //   {
-    //       type: Schema.Types.ObjectId, 
-    //       ref: "user"
-    //   }
-    // },
+    user: { //this is the key name in the evnt model
+          type: mongoose.Schema.Types.ObjectId, 
+          ref: "User"//refers to the collection name
+    }
 
     // picture: {
-    //   // type: Array???
+    //   // type: String
     // }, 
     // description: {
     //   type: String, 
     //   // required: true
-    // },
+    // }
   },
   {
     timestamps: true,
