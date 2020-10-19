@@ -31,7 +31,7 @@ router.get("/events", (req, res) => {
 });
 
 router.post("/create-event", (req, res) => {
-  const { title, location, date, type, description } = req.body;
+  const { title, location, date, type, description, eventPicture } = req.body;
 
   if (!title || !location || !date || !type) {
     res.status(500).render("create-event.hbs", {
@@ -57,7 +57,7 @@ router.post("/create-event", (req, res) => {
     date,
     type,
     user: newUser,
-    // picture,
+    eventPicture,
     description
     // attendEvent: [ mongoose.Schema.Types.ObjectId ]
   })

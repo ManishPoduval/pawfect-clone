@@ -26,6 +26,22 @@
     </select></div>
   </div>
 
+<div class="field">
+    <label>Description</label>
+    <div class="input">
+      <textarea value="{{event.description}}" class="description-box" name="description" placeholder="Description of event" cols="40"
+        rows="5"></textarea>
+    </div>
+  </div>
+
+  <div>
+    <label for="avatar">Choose a event picture</label>
+    <br>
+    <input value="{{event.eventPicture}}" type="url" id="downloadeventpic" name="eventPicture" accept="image/png, image/jpeg">
+    <button type="submit" class="btn btn-primary">Upload my Picture</button>
+  </div>
+
+
   <button type="submit">Update event</button>
 </form>
 
