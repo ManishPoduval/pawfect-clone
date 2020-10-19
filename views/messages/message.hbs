@@ -1,0 +1,11 @@
+<h1>Send a Message</h1>
+
+<form method="POST" action="/messages/send/{{data._id}}">
+  <label for="recipient">Recipient:</label>
+  <input type="text" name="recipient" readonly="true" value="{{data.name}}">
+  <br/>
+  <label for="content">Message</label>
+  <textarea name="content" required="true" rows="5" placeholder="Write your message here! Remember to be paw-some!"></textarea>
+  <br/>
+  <button type="submit">Send</button>
+</form>

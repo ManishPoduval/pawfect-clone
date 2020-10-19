@@ -75,4 +75,7 @@ app.use("/", profileRoutes);
 const eventsRoutes = require("./routes/events.routes");
 app.use("/", eventsRoutes);
 
+const messageRoutes = require("./routes/message.routes");
+app.use("/", messageRoutes);
+
 module.exports = app;
