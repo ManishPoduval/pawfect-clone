@@ -17,7 +17,7 @@ select {
   color: black; }
 
 html {
-  background: #ddd; }
+  background: #eee; }
 
 a {
   color: #d0b240;
@@ -25,7 +25,7 @@ a {
 
 header {
   height: 64px;
-  background: #365B6D;
+  background: #123c44;
   color: white;
   position: relative; }
   header figure {
@@ -41,14 +41,10 @@ header {
     height: 100%; }
     header nav a {
       padding: 0 24px;
-      border-right: 1px solid #365B6D;
+      border-right: 1px solid #ffffff1c;
       display: flex;
       height: 100%;
       align-items: center; }
-
-#logo {
-  height: 200px;
-  width: 200px; }
 
 form {
   margin-bottom: 32px; }
@@ -95,7 +91,7 @@ footer {
   align-items: center;
   justify-content: center; }
 
-#mapid {
-  height: 380px; }
+.description-box {
+  height: 200px; }
 
 /*# sourceMappingURL=style.css.map */

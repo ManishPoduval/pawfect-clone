@@ -4,15 +4,58 @@
   <li>{{ eventsData.date }} - {{ eventsData.location }}</li>
 </ul>
 <br>
+<h2>Event Description</h2>
+<p>{{ eventsData.description }} </p>
+<br>
+<img src= {{ eventsData.eventPicture }} alt="Event Picture" width="100" height="100">
+<br>
 <h4>TODO For Event Details</h4>
 <ul>
   <li>Add a picture of the event</li>
-  <li>Add a short description</li>
   <li>Add the max number of dogs accepted</li>
   <li>Change time format</li>
   <li>Add a link to the creator of the event!</li>
 </ul>
+<br>
 
 {{!-- <img class="event-picture"
      src="{{ eventsData.picture }}"
      alt= "{{ eventsData.title }} picture" > --}}
+
+
+
+<div class="button-section">
+  {{!-- {{#each item in eventsData.attendEvent }}
+  {{#if loggedInUser._id !== item }}
+  <a href="/event-registration/{{ eventsData._id }}">
+    <button type="button" class="btn btn-primary">Register Now</button>
+  </a>
+  {{/if}}
+    
+  <a href="/event-registration/{{ eventsData._id }}">
+    <button type="button" class="btn btn-primary">Cancel</button>
+  </a>
+  {{/each}} --}}
+
+<a href="/event-registration/{{ eventsData._id }}">
+    <button type="button" class="btn btn-primary">Register Now</button>
+  </a>
+
+
+  {{#if user }}
+  <a href="/event/{{ eventsData._id }}/edit">
+    <button type="submit" class="btn btn-primary">Edit</button>
+  </a>
+
+
+  <form method="POST" action="/event/{{ eventsData._id }}/delete">
+    <a href="/event/{{ eventsData._id }}/delete">
+      <button type="submit" class="btn btn-primary">Delete</button>
+    </a>
+  </form>
+  {{/if}}
+
+  <a href="/events">
+    <button type="submit" class="btn btn-primary">All Events</button>
+  </a>
+</div>
