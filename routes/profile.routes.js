@@ -2,11 +2,19 @@ const express = require("express");
 const router = express.Router();
 const UserModel = require("../model/User.model");
 var bcrypt = require("bcryptjs");
+const PetProfileModel = require("../model/PetProfile.model");
 
 
 router.get("/profile", (req, res) => {
   let userData = req.session.loggedInUser;
-  res.render("profiles/profile", { userData, myProfile:true });
+  PetProfileModel.find({ user: userData._id })
+    .then((petData) => {
+      res.render("profiles/profile", { userData, myProfile: true, petData });
+    })
+    .catch((err) => {
+      console.log("failed to add pet", err)
+    });
+  // res.render("profiles/profile", { userData, myProfile:true });
 });
 
 router.get("/profile/edit", (req, res) => {
@@ -16,7 +24,7 @@ router.get("/profile/edit", (req, res) => {
 
 router.get("/profile/:id", (req, res) => {
   let id = req.params.id;
-  
+
   UserModel.findById(id)
     .then((userData) => {
       let myProfile = (id === req.session.loggedInUser._id);
@@ -85,7 +93,7 @@ router.post("/profiles/edit/password", (req, res) => {
                 console.log("Failed to generate salt");
               });
           }
-          else{
+          else {
             res.status(500).render("profile/edit-password", { message: "Old password does not match your user information" });
             return;
           }
