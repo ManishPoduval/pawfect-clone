@@ -78,4 +78,7 @@ app.use("/", eventsRoutes);
 const messageRoutes = require("./routes/message.routes");
 app.use("/", messageRoutes);
 
+const apiRoutes = require("./routes/api.routes");
+app.use("/", apiRoutes);
+
 module.exports = app;
