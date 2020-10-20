@@ -132,14 +132,14 @@ router.post("/signin", (req, res) => {
 
 ////PRIVATE 
 
-// router.use((req, res, next) => {
-//   if (req.session.currentUser) {
-//     // if there's user in the session user is logged in
-//     next();
-//   } else {
-//     res.redirect("/login");
-//   }
-// });
+router.use((req, res, next) => {
+  if (req.session.currentUser) {
+    // if there's user in the session user is logged in
+    next();
+  } else {
+    res.redirect("/signup");
+  }
+});
 
 
 router.get('/dummy', (req, res) => {
