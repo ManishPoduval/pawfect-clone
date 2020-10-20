@@ -11,7 +11,6 @@ router.get("/signup", (req, res) => {
 });
 
 router.get("/signin", (req, res) => {
-
   req.app.locals.notUser = !req.session.loggedInUser;
   res.render("auth/signin.hbs");
 });
@@ -127,7 +126,10 @@ router.post("/signin", (req, res) => {
 });
 
 
-
+router.get("/loggedout", (req, res) => {
+  req.app.locals.notUser = !req.session.loggedInUser;
+  res.render("auth/logout.hbs");
+});
 
 
 
@@ -147,9 +149,5 @@ router.get('/logout', (req, res) => {
   });
 });
 
-router.get("/loggedout", (req, res) => {
-  req.app.locals.notUser = !req.session.loggedInUser;
-  res.render("auth/logout.hbs");
-});
 
 module.exports = router;
