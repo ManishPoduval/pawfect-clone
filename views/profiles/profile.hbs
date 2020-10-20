@@ -1,11 +1,23 @@
-<h1>Hi {{userData.name}}!</h1> 
+<h1>Hi {{userData.name}}!</h1>
 Location: {{userData.location}}
 <br>
+{{#if petData}}
+<div style="margin: 12px">
+  Pets:
+  {{#each petData}}
+  <div>
+    <p>Name: <a href="/petprofile/{{this._id}}">{{this.name}}</a></p>
+    <p>Birthyear: {{this.birthYear}}</p>
+  </div>
+  {{/each}}
+</div>
+{{/if}}
 
 {{#unless myProfile}}
 <a href="/messages/send/{{userData._id}}">Send a message!</a>
 
 {{else}}
 <a href="/profile/edit">Edit Profile</a>
+<br />
+<a href="/petprofile/create">Add a Pet!</a>
 {{/unless}}
-
