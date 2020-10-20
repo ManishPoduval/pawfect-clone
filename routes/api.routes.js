@@ -12,7 +12,6 @@ router.get("/api/events/:startDate/:endDate", (req, res) => {
 
   EventModel.find({ date: { $gte: startDate, $lt: endDate }  }, null, { sort: { 'date': 'asc' } })
     .then((eventsData) => {
-      console.log(eventsData);
       let responseData = [];
       for (let eventData of eventsData) {
         responseData.push({
