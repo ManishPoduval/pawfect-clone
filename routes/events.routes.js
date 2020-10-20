@@ -81,6 +81,17 @@ router.post("/create-event", (req, res) => {
   //res.render("create-event.hbs");
 });
 
+
+// router.use((req, res, next) => {
+//   if (req.session.currentUser) {
+//     // if there's user in the session user is logged in
+//     next();
+//   } else {
+//     res.redirect("/signin");
+//   }
+// });
+
+
 //EDIT EVENT
 
 // GET route to show the form to update a single event.
