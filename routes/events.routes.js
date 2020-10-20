@@ -6,6 +6,15 @@ const UserModel = require("../model/User.model");
 const EventModel = require("../model/Event.model");
 
 //EVENTS
+// router.use((req, res, next) => {
+//   if (req.session.loggedInUser) {
+//     // if there's user in the session (user is logged in)
+//     next();
+//   } else {
+//     res.redirect("/login");
+//   }
+// });
+
 
 router.get("/create-event", (req, res) => {
   res.render("create-event.hbs");
@@ -58,7 +67,8 @@ router.post("/create-event", (req, res) => {
     type,
     user: newUser,
     eventPicture,
-    description
+    description, 
+    attendEvent: newUser
     // attendEvent: [ mongoose.Schema.Types.ObjectId ]
   })
     .then(() => {
@@ -122,14 +132,25 @@ router.get("/event-details/:id", (req, res) => {
       // console.log(`THIS IS ${eventsData.user} DETAILS`);
       //console.log(req.session.loggedInUser._id === eventsData.user._id)
       //console.log(eventsData)
-      if (
-        JSON.stringify(req.session.loggedInUser._id) ===
-        JSON.stringify(eventsData.user._id)
-      ) {
-        res.render("event-details.hbs", { eventsData, user: true});
-      } else {
-        res.render("event-details.hbs", { eventsData });
+      let creator = (JSON.stringify(req.session.loggedInUser._id) ===
+      JSON.stringify(eventsData.user._id))
+
+      let attendee = false; 
+
+      for (let i = 0; i < eventsData.attendEvent.length; i++){
+        if (JSON.stringify(eventsData.attendEvent[i]) === JSON.stringify(req.session.loggedInUser._id)) {
+          attendee = true; 
+          break
+        }
       }
+      res.render("event-details.hbs", { eventsData, user: creator, attendee});      // if (
+      //   JSON.stringify(req.session.loggedInUser._id) ===
+      //   JSON.stringify(eventsData.user._id)
+      // ) {
+      //   res.render("event-details.hbs", { eventsData, user: true});
+      // } else {
+      //   res.render("event-details.hbs", { eventsData });
+      // }
     })
     .catch((err) => {
       console.log("There is an error", err);
@@ -161,6 +182,26 @@ router.get("/event-registration/:id", (req, res, next) => {
 //CANCEL event registration ROUTE
 router.get("/event-cancel-registration/:id", (req, res, next) => {
   const { id } = req.params;
+  let userId = req.session.loggedInUser._id
+
+  EventModel.findById(id)
+  .then((data) => {
+    let eventData = JSON.parse(JSON.stringify(data.attendEvent))
+    console.log("eventData 1 is:", eventData)
+
+    let index = eventData.indexOf(userId)
+    console.log("index", index)
+    eventData.splice(index, 1)
+    console.log("eventData is:", eventData)
+
+    EventModel.findByIdAndUpdate(id, {$set: {attendEvent: eventData}})
+    .then(() => {
+      res.render("event-cancel-registration.hbs", { data })
+    })
+  })
+  .catch((err) => {
+    console.log(err)
+  })
 
 }); 
 

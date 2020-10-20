@@ -129,6 +129,21 @@ router.post("/signin", (req, res) => {
 
 
 
+
+
+
+////PRIVATE 
+
+// router.use((req, res, next) => {
+//   if (req.session.currentUser) {
+//     // if there's user in the session user is logged in
+//     next();
+//   } else {
+//     res.redirect("/login");
+//   }
+// });
+
+
 router.get('/dummy', (req, res) => {
   res.render('dummy.hbs', { name: req.session.loggedInUser.name });
 });
