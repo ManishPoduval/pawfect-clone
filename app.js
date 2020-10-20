@@ -76,6 +76,9 @@ app.use("/", profileRoutes);
 const eventsRoutes = require("./routes/events.routes");
 app.use("/", eventsRoutes);
 
+const petProfileRoutes = require("./routes/petprofile.routes");
+app.use("/", petProfileRoutes);
+
 const messageRoutes = require("./routes/message.routes");
 app.use("/", messageRoutes);
 

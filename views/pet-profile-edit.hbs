@@ -1,0 +1,29 @@
+<h1>PET PROFILE</h1>
+<h1>{{ petProfileData.name }}</h1>
+
+{{!-- //Signup for - always method=POST - action=/signup - name attribute for the DB - Submit button --}}
+
+<form method="POST" action="/petprofile/create">
+
+  <div class="field">
+    <label>Name</label>
+    <div class="input"><input type="text" name="name" placeholder="Name of pet" value="{{petProfileData.name}}"></div>
+  </div>
+
+  <div class="field">
+    <label>Birth year</label>
+    <div class="input"><input type="text" name="birthYear" placeholder="Birth year" value="{{petProfileData.birthYear}}"></div>
+  </div>
+
+  <br>
+  <button type="submit">Create pet profile</button>
+</form>
+
+{{#if message}}
+<div class="error">{{message}}</div>
+{{/if}}
+
+
+
+
+
