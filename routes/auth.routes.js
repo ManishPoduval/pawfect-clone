@@ -134,11 +134,17 @@ router.get("/loggedout", (req, res) => {
 
 
 
+//PRIVATE ROUTES
 
-router.get('/dummy', (req, res) => {
-  res.render('dummy.hbs', { name: req.session.loggedInUser.name });
+router.use((req, res, next) => {
+  if (req.session.loggedInUser) {
+    // if there's user in the session user is logged in
+    req.app.locals.notUser = !req.session.loggedInUser;
+    next();
+  } else {
+    res.redirect("/signin");
+  }
 });
-
 
 router.get('/logout', (req, res) => {
   req.session.destroy((err) => {
