@@ -11,7 +11,6 @@ router.get("/signup", (req, res) => {
 });
 
 router.get("/signin", (req, res) => {
-
   req.app.locals.notUser = !req.session.loggedInUser;
   res.render("auth/signin.hbs");
 });
@@ -127,7 +126,10 @@ router.post("/signin", (req, res) => {
 });
 
 
-
+router.get("/loggedout", (req, res) => {
+  req.app.locals.notUser = !req.session.loggedInUser;
+  res.render("auth/logout.hbs");
+});
 
 
 
@@ -135,19 +137,14 @@ router.post("/signin", (req, res) => {
 //PRIVATE ROUTES
 
 router.use((req, res, next) => {
-  if (req.session.currentUser) {
+  if (req.session.loggedInUser) {
     // if there's user in the session user is logged in
+    req.app.locals.notUser = !req.session.loggedInUser;
     next();
   } else {
     res.redirect("/signin");
   }
 });
-
-
-router.get('/dummy', (req, res) => {
-  res.render('dummy.hbs', { name: req.session.loggedInUser.name });
-});
-
 
 router.get('/logout', (req, res) => {
   req.session.destroy((err) => {
@@ -158,9 +155,5 @@ router.get('/logout', (req, res) => {
   });
 });
 
-router.get("/loggedout", (req, res) => {
-  req.app.locals.notUser = !req.session.loggedInUser;
-  res.render("auth/logout.hbs");
-});
 
 module.exports = router;
