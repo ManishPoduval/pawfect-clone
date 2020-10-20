@@ -1,4 +1,5 @@
 const express = require("express");
+const moment = require("moment");
 const router = express.Router();
 var bcrypt = require("bcryptjs");
 
@@ -21,14 +22,25 @@ router.get("/create-event", (req, res) => {
 });
 
 router.get("/events", (req, res) => {
+
   EventModel.find({ date: { $gte: new Date() } }, null, {
     sort: { date: "asc" },
   })
     .then((eventsData) => {
       // console.log("req.session.loggedInUser._id is: ", req.session.loggedInUser._id)
       // console.log("eventsData[0].user is: ", eventsData[0].user);
+
+      let events = [];
+      for (let eventData of eventsData) {
+        eventData.time = moment(eventData.date).format('HH:mm');
+        eventData.datePretty = moment(eventData.date).format('YYYY-MM-DD');
+        events.push(eventData);
+      }
+
+      console.log(events);
       
-      res.render("events.hbs", { events: eventsData });
+      res.render("events.hbs", { events: events });
+
     })
     .catch((err) => {
       console.log(err);
@@ -143,8 +155,13 @@ router.get("/event-details/:id", (req, res) => {
       // console.log(`THIS IS ${eventsData.user} DETAILS`);
       //console.log(req.session.loggedInUser._id === eventsData.user._id)
       //console.log(eventsData)
-      let creator = (JSON.stringify(req.session.loggedInUser._id) ===
-      JSON.stringify(eventsData.user._id))
+    console.log(eventsData);
+
+      let creator = null;
+      if (req.session.loggedInUser && eventsData.user) {
+        creator = (JSON.stringify(req.session.loggedInUser._id) ===
+        JSON.stringify(eventsData.user._id))
+      }
 
       let attendee = false; 
 

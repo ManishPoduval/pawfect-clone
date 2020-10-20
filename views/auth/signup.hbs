@@ -4,17 +4,17 @@
 <form method="POST" action="/signup">
   <div class="field">
     <label>Name</label>
-    <div class="input"><input type="text" name="name" placeholder="Name"  ></div>
+    <div class="input"><input type="text" name="name" placeholder="Name" value="{{request.name}}" ></div>
   </div>
 
   <div class="field">
     <label>Location</label>
-    <div class="input"><input type="text" name="location" placeholder="Enter your location"  ></div>
+    <div class="input"><input type="text" name="location" placeholder="Enter your location"  value="{{request.location}}" ></div>
   </div>
 
   <div class="field">
     <label>Email</label>
-    <div class="input"><input type="email" name="email" placeholder="Enter your email"  ></div>
+    <div class="input"><input type="email" name="email" placeholder="Enter your email"  value="{{request.email}}" ></div>
   </div>
 
   <div class="field">

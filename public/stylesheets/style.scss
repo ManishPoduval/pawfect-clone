@@ -9,9 +9,14 @@ ul {
   list-style-position: inside;
 }
 
+button,
+input[type="button"],
 a.button {
   padding: 10px 12px;
   background: #eee;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 input[type="text"],
@@ -35,7 +40,7 @@ a {
 
 header {
   height: 64px;
-  background: #365B6D;
+  background: #30586e;
   color: white;
 
   position: relative;
@@ -66,11 +71,7 @@ header {
     }
   }
 }
-#logo{
-  height: 200px;
-  width: 200px;
 
-}
 form {
   margin-bottom: 32px;
 
@@ -95,7 +96,11 @@ form {
 }
 
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px/1.6 "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+p {
+
 }
 
 main {
@@ -110,7 +115,56 @@ main {
     margin-top: 16px;
     margin-bottom: 24px;
   }
+  p {
+    max-width: 560px;
+  }
 }
+
+ul.upcoming-events {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+
+  li {
+    margin: 16px;
+    box-shadow: 0 7px 15px 6px #adabab;
+    flex-grow: 1;
+    flex-basis: 0%;
+    min-width: 25%;
+    border-radius: 3px;
+    padding: 24px;
+
+    > * {
+      padding: 8px 0;
+      border-bottom: 1px solid #ddd;
+      color: #333;
+
+      span {
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+        text-align: center;
+        margin-right: 4px;
+        color: #aaa;
+      }
+
+      &.title {
+        font-weight: bold;
+        font-size: 16px;
+      }
+    }
+
+
+    &.placeholder {
+      padding: 0;
+      box-shadow: none;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+  }
+}
+
 
 .buttons{
   display: flex;
