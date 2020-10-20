@@ -5,15 +5,9 @@ var bcrypt = require("bcryptjs");
 const UserModel = require("../model/User.model");
 const EventModel = require("../model/Event.model");
 
-//EVENTS
-// router.use((req, res, next) => {
-//   if (req.session.loggedInUser) {
-//     // if there's user in the session (user is logged in)
-//     next();
-//   } else {
-//     res.redirect("/login");
-//   }
-// });
+
+
+
 
 
 router.get("/create-event", (req, res) => {
@@ -80,6 +74,9 @@ router.post("/create-event", (req, res) => {
 
   //res.render("create-event.hbs");
 });
+
+
+
 
 //EDIT EVENT
 
