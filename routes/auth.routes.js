@@ -5,12 +5,14 @@ const UserModel = require("../model/User.model");
 const EventModel = require("../model/Event.model");
 
 
-
 router.get("/signup", (req, res) => {
+  req.app.locals.notUser = !req.session.loggedInUser;
   res.render("auth/signup.hbs");
 });
 
 router.get("/signin", (req, res) => {
+
+  req.app.locals.notUser = !req.session.loggedInUser;
   res.render("auth/signin.hbs");
 });
 
@@ -142,6 +144,7 @@ router.get('/logout', (req, res) => {
 });
 
 router.get("/loggedout", (req, res) => {
+  req.app.locals.notUser = !req.session.loggedInUser;
   res.render("auth/logout.hbs");
 });
 

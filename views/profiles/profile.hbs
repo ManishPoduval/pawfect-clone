@@ -1,6 +1,11 @@
 <h1>Hi {{userData.name}}!</h1> 
 Location: {{userData.location}}
 <br>
-<a href="/profile/edit">Edit Profile</a>
-<br/>
+
+{{#unless myProfile}}
 <a href="/messages/send/{{userData._id}}">Send a message!</a>
+
+{{else}}
+<a href="/profile/edit">Edit Profile</a>
+{{/unless}}
+

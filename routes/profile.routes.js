@@ -6,7 +6,7 @@ var bcrypt = require("bcryptjs");
 
 router.get("/profile", (req, res) => {
   let userData = req.session.loggedInUser;
-  res.render("profiles/profile", { userData });
+  res.render("profiles/profile", { userData, myProfile:true });
 });
 
 router.get("/profile/edit", (req, res) => {
@@ -16,9 +16,11 @@ router.get("/profile/edit", (req, res) => {
 
 router.get("/profile/:id", (req, res) => {
   let id = req.params.id;
+  
   UserModel.findById(id)
     .then((userData) => {
-      res.render("profiles/profile", { userData });
+      let myProfile = (id === req.session.loggedInUser._id);
+      res.render("profiles/profile", { userData, myProfile: myProfile });
     })
     .catch((err) => {
       console.log("Failed to retrieve user information from database", err);

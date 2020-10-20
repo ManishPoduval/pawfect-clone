@@ -10,7 +10,7 @@ const logger       = require('morgan');
 const path         = require('path');
 
 
-require('./configs/db.config')
+require('./configs/db.config');
 
 
 const app_name = require('./package.json').name;
@@ -32,11 +32,13 @@ app.use(require('node-sass-middleware')({
   sourceMap: true
 }));
       
+// hbs.registerPartials(path.join(__dirname, "/views/partials"));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
+
 
 //set up the session(cookies)
 const session = require('express-session');
@@ -56,7 +58,6 @@ app.use(session({
   })
   
 }));
-
 
 // default value for title local
 app.locals.title = 'Meet Pup';

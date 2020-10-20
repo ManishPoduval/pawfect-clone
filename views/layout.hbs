@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,9 +10,40 @@
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.2/main.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.2/main.min.css">
 </head>
+
 <body>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+
   <header>
+    <figure><a href="/"><img id=logo src="/images/logo3.png" /></a></figure>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"> 
+      {{#if notUser}}
+      {{!-- {{> guest-nav}} --}}
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/signup">SignUp</a>
+        <a href="/signin">SignIn</a>
+      {{else}}
+        <a href="/about">About</a>
+        <a href="/events">Events</a>
+        <a href="/create-event">Create event</a>
+        <a href="/profile">Profile</a>
+        <a href="/messages">Messages</a>
+        <a href="/logout">LogOut</a>
+      {{!-- {{> loggedin-nav}} --}}
+      {{/if}}
+
+    </nav>
+  </header>
+
+  {{!-- {{#if notUser}}
+  {{> guest-nav}}
+  Sign In
+  {{else}}
+  Logout
+  {{> loggedin-nav}}
+  {{/if}} --}}
+
+  {{!-- <header>
     <figure><a href="/"><img id= logo src="/images/logo3.png" /></a></figure>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <a href="/events">Events</a>
@@ -21,19 +53,18 @@
       <a href="/signin">SignIn</a>
       <a href="/logout">LogOut</a>
     </nav>
-  </header>
+  </header> --}}
 
 
 
 
   <main role="main">
-  {{{body}}}
+    {{{body}}}
   </main>
 
-    
+
 
   <script src="/javascripts/script.js"></script>
 </body>
+
 </html>
-
-
