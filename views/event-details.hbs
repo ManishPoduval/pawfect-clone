@@ -1,14 +1,17 @@
 <h1>{{ eventsData.title }}</h1>
-<h2>{{ eventsData.type }}</h2>
-<ul>
-  <li>{{ eventsData.date }} - {{ eventsData.location }}</li>
-</ul>
+
+<div class="event-details-box">
+<h2>Type of event: {{ eventsData.type }}</h2>
+<h4>Host: <a href="/profile/{{eventsDate.user._id}}">{{ eventsData.user.name }}</a> </h4>
+<p><span class="fas fa-calendar"></span>{{ eventsData.datePretty}} - <span class="fas fa-clock"></span>{{ eventsData.time}} - <span class="fas fa-map-marker"></span>{{ eventsData.location }}</p>
+</div>
 <br>
 <h2>Event Description</h2>
 <p>{{ eventsData.description }} </p>
 <br>
 <img src={{ eventsData.eventPicture }} alt="Event Picture" width="100" height="100">
 <br>
+
 {{!-- <h4>TODO For Event Details</h4>
 <ul>
   <li>Add a picture of the event</li>

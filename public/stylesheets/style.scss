@@ -119,6 +119,29 @@ main {
     max-width: 560px;
   }
 }
+.event-details-box{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  list-style: none;
+
+    box-shadow: 0 7px 15px 6px #adabab;
+    flex-grow: 1;
+    flex-basis: 0%;
+    width: 400px;
+    border-radius: 3px;
+    padding: 24px;
+    
+    span {
+      width: 24px;
+      height: 24px;
+      line-height: 24px;
+      text-align: center;
+      margin-right: 4px;
+      color: #aaa;
+    }
+}
+
 
 ul.upcoming-events {
   display: flex;

@@ -23,7 +23,7 @@ router.get("/events", (req, res) => {
 
       let events = [];
       for (let eventData of eventsData) {
-        eventData.time = moment(eventData.date).format('HH:mm');
+        // eventData.time = moment(eventData.date).format('HH:mm');
         eventData.datePretty = moment(eventData.date).format('YYYY-MM-DD');
         events.push(eventData);
       }
@@ -43,9 +43,10 @@ router.get("/events", (req, res) => {
 });
 
 router.post("/create-event", (req, res) => {
-  const { title, location, date, type, description, eventPicture } = req.body;
+  const { title, location, date, time, type, description, eventPicture } = req.body;
+  console.log(req.body)
 
-  if (!title || !location || !date || !type) {
+  if (!title || !location || !date || !time || !type) {
     res.status(500).render("create-event.hbs", {
       message: "Please fill in all the fields!",
     });
@@ -62,15 +63,10 @@ router.post("/create-event", (req, res) => {
 
   //take the ID number of the currently logged in user
   let newUser = req.session.loggedInUser._id;
-
+console.log('time is :', time)
   EventModel.create({
-    title,
-    location,
-    date,
-    type,
+    ...req.body,
     user: newUser,
-    eventPicture,
-    description, 
     attendEvent: newUser
     // attendEvent: [ mongoose.Schema.Types.ObjectId ]
   })
@@ -139,12 +135,16 @@ router.get("/event-details/:id", (req, res) => {
       //console.log(req.session.loggedInUser._id === eventsData.user._id)
       //console.log(eventsData)
     console.log(eventsData);
-
       let creator = null;
       if (req.session.loggedInUser && eventsData.user) {
         creator = (JSON.stringify(req.session.loggedInUser._id) ===
         JSON.stringify(eventsData.user._id))
       }
+      
+      
+        // eventsData.time = moment(eventsData.time).format('HH:mm');
+        eventsData.datePretty = moment(eventsData.date).format('YYYY-MM-DD');
+       
 
       let attendee = false; 
 
@@ -175,6 +175,9 @@ router.get("/event-registration/:id", (req, res, next) => {
 
   EventModel.findByIdAndUpdate(id, {$push: { attendEvent: req.session.loggedInUser._id }})
   .then((event) => {
+    
+    // event.time = moment(event.date).format('HH:mm');
+    event.datePretty = moment(event.date).format('YYYY-MM-DD');
 
     console.log("Registered to Event: ", event);
     res.render("event-registration.hbs", { event });
@@ -204,6 +207,9 @@ router.get("/event-cancel-registration/:id", (req, res, next) => {
     console.log("index", index)
     eventData.splice(index, 1)
     console.log("eventData is:", eventData)
+
+    data.time = moment(data.date).format('HH:mm');
+    data.datePretty = moment(eventsData.date).format('YYYY-MM-DD');
 
     EventModel.findByIdAndUpdate(id, {$set: {attendEvent: eventData}})
     .then(() => {
