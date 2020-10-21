@@ -172,7 +172,7 @@ router.get("/event-details/:id", (req, res) => {
 //REGISTER TO AN EVENT 
 router.get("/event-registration/:id", (req, res, next) => {
   const { id } = req.params;
-
+  console.log("inside event registration");
   EventModel.findByIdAndUpdate(id, {$push: { attendEvent: req.session.loggedInUser._id }})
   .then((event) => {
     console.log("Registered to Event: ", event);
