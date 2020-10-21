@@ -1,21 +1,21 @@
 <article class='event-details-page'>
 <h1>{{ eventsData.title }}</h1>
-<h2>{{ eventsData.type }}</h2>
+{{!-- <h2>{{ eventsData.type }}</h2> --}}
 <ul>
-  <li>{{ eventsData.date }} - {{ eventsData.location }}</li>
+  {{!-- <li>{{ eventsData.datePretty }} - {{ eventsData.location }}</li> --}}
 </ul>
-User: {{ eventsData.user.name }}
+{{!-- User: {{ eventsData.user.name }} --}}
 <br>
-People joining: 
+{{!-- People joining: 
 {{#each attendeesData}}
-<div>{{name}}</div>
-{{/each}}
-<h2>Event Description</h2>
+<div><a href="/profile/{{this._id}}">{{this.name}}</a></div>
+{{/each}} --}}
+{{!-- <<h2>Event Description</h2>
 <p>{{ eventsData.description }} </p>
 <br>
 {{#if eventsData.eventPicture}}
 <img src="/event-details/{{ eventsData._id }}/picture" alt="Event Picture" height="100">
-{{/if}}
+{{/if}} --}}
 
 <br>
 {{!-- <h4>TODO For Event Details</h4>
@@ -33,11 +33,17 @@ People joining:
 <p><span class="fas fa-calendar"></span>{{ eventsData.datePretty}} - <span class="fas fa-clock"></span>{{ eventsData.time}} - <span class="fas fa-map-marker"></span>{{ eventsData.location }}</p>
 </section>
 
+People joining: 
+{{#each attendeesData}}
+<div><a href="/profile/{{this._id}}">{{this.name}}</a></div>
+{{/each}}
 
 <section class="event-section">
+  {{#if eventsData.eventPicture}}
 <div class="event-img">
 <img src={{ eventsData.eventPicture }} alt="Event Picture" width="100" height="100">
 </div>
+{{/if}}
 <div class="event-description" ><h2>Event Description</h2>
 <p>{{ eventsData.description }} </p>
 </div>
