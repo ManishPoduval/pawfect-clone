@@ -126,7 +126,12 @@ router.post("/signin", (req, res) => {
     });
 });
 
+router.get("/loggedout", (req, res) => {
+  req.app.locals.notUser = !req.session.loggedInUser;
+  res.render("auth/logout.hbs");
+});
 
+module.exports = router;
 
 //PRIVATE ROUTES
 
@@ -140,11 +145,6 @@ router.use((req, res, next) => {
 });
 
 
-router.get('/dummy', (req, res) => {
-  res.render('dummy.hbs', { name: req.session.loggedInUser.name });
-});
-
-
 router.get('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err){
@@ -154,9 +154,4 @@ router.get('/logout', (req, res) => {
   });
 });
 
-router.get("/loggedout", (req, res) => {
-  req.app.locals.notUser = !req.session.loggedInUser;
-  res.render("auth/logout.hbs");
-});
 
-module.exports = router;

@@ -181,7 +181,7 @@ router.get("/event-registration/:id", (req, res, next) => {
   })
   .catch((err) => {
     console.log("There is an error", err);
-    res.redirect("/events" /*, { registrationMessage: "Sorry, we were unable to register you for the event. You may try again later." }*/);
+    res.redirect("/events"); /*, { registrationMessage: "Sorry, we were unable to register you for the event. You may try again later." });*/
   });
 }); 
 

@@ -25,7 +25,7 @@ const eventSchema = new mongoose.Schema(
     attendEvent: {
       type: [ mongoose.Schema.Types.ObjectId ], 
       ref: "User",
-      unique: true // to only register once
+      //unique: true // to only register once
     },
     eventPicture: {
       type: String
