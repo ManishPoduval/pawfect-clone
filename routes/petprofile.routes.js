@@ -29,7 +29,7 @@ router.post("/petprofile/create", (req, res) => {
     user: req.session.loggedInUser._id
   })
     .then((event) => {
-      console.log(event);
+      //console.log(event);
       // res.redirect("/petprofile/" + event._id);
       res.redirect("/profile");
     })
