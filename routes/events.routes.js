@@ -1,11 +1,21 @@
 const express = require("express");
 const moment = require("moment");
 const router = express.Router();
-var bcrypt = require("bcryptjs");
+const bcrypt = require("bcryptjs");
+const fs = require('fs');
 
 const UserModel = require("../model/User.model");
 const EventModel = require("../model/Event.model");
 
+//EVENTS
+// router.use((req, res, next) => {
+//   if (req.session.loggedInUser) {
+//     // if there's user in the session (user is logged in)
+//     next();
+//   } else {
+//     res.redirect("/login");
+//   }
+// });
 
 
 router.get("/create-event", (req, res) => {
@@ -83,6 +93,9 @@ router.get("/events", (req, res) => {
 router.post("/create-event", (req, res) => {
   const { title, location, date, type, description, eventPicture } = req.body;
 
+  console.log('req.files');
+  console.log(req.files);
+
   if (!title || !location || !date || !type) {
     res.status(500).render("create-event.hbs", {
       message: "Please fill in all the fields!",
@@ -112,7 +125,12 @@ router.post("/create-event", (req, res) => {
     attendEvent: newUser
     // attendEvent: [ mongoose.Schema.Types.ObjectId ]
   })
-    .then(() => {
+    .then((resultEvent) => {
+
+      resultEvent.eventPicture.data = req.files.eventPicture.data;
+      resultEvent.eventPicture.contentType = req.files.eventPicture.mimetype;
+      resultEvent.save();
+
       res.redirect("/events");
     })
     .catch((err) => {
@@ -123,6 +141,14 @@ router.post("/create-event", (req, res) => {
 });
 
 
+// router.use((req, res, next) => {
+//   if (req.session.currentUser) {
+//     // if there's user in the session user is logged in
+//     next();
+//   } else {
+//     res.redirect("/signin");
+//   }
+// });
 
 
 //EDIT EVENT
@@ -166,12 +192,19 @@ router.post("/event/:id/delete", (req, res, next) => {
 });
 
 //EVENT DETAILS
-router.get("/event-details/:id", (req, res) => {
+router.get("/event-details/:id", async(req, res) => {
   const { id } = req.params;
+
+
+
+
+
+
+  //console.log(usersData);
 
   EventModel.findById(id)
     .populate("user")
-    .then((eventsData) => {
+    .then(async(eventsData) => {
       // console.log("THIS IS EVENT DATA", eventsData);
       // console.log(`THIS IS ${eventsData.user} DETAILS`);
       //console.log(req.session.loggedInUser._id === eventsData.user._id)
@@ -184,7 +217,13 @@ router.get("/event-details/:id", (req, res) => {
           JSON.stringify(eventsData.user._id))
       }
 
-      let attendee = false;
+      console.log(eventsData.attendEvent);
+
+      let attendeesData = await UserModel.find({ _id: eventsData.attendEvent }, null, {
+        sort: { date: "asc" },
+      });
+
+      let attendee = false; 
 
       for (let i = 0; i < eventsData.attendEvent.length; i++) {
         if (JSON.stringify(eventsData.attendEvent[i]) === JSON.stringify(req.session.loggedInUser._id)) {
@@ -192,7 +231,7 @@ router.get("/event-details/:id", (req, res) => {
           break;
         }
       }
-      res.render("event-details.hbs", { eventsData, user: creator, attendee });      // if (
+      res.render("event-details.hbs", { eventsData, user: creator, attendee, attendeesData });      // if (
       //   JSON.stringify(req.session.loggedInUser._id) ===
       //   JSON.stringify(eventsData.user._id)
       // ) {
@@ -200,6 +239,24 @@ router.get("/event-details/:id", (req, res) => {
       // } else {
       //   res.render("event-details.hbs", { eventsData });
       // }
+    })
+    .catch((err) => {
+      console.log("There is an error", err);
+    });
+});
+
+
+//EVENT DETAILS
+router.get("/event-details/:id/picture", async(req, res) => {
+  const { id } = req.params;
+
+  EventModel.findById(id)
+    .populate("user")
+    .then(async(eventsData) => {
+
+      res.write(eventsData.eventPicture.data);
+      res.end();
+
     })
     .catch((err) => {
       console.log("There is an error", err);

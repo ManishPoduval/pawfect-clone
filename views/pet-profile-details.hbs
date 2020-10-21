@@ -3,8 +3,19 @@
 
 {{!-- //Signup for - always method=POST - action=/signup - name attribute for the DB - Submit button --}}
 
-<a class="button" href="/petprofile/{{petProfileData.id}}/edit">Edit</a>
+ {{#if user}}
+  <a class="button" href="/petprofile/{{petProfileData.id}}/edit">Edit</a>
+  {{/if}}
 
   Name  {{petProfileData.name}}
   Birth year {{petProfileData.birthYear}}
 
+  Picture <img src="/petprofile/{{ petProfileData._id }}/picture" alt="Pet Picture" height="100">
+
+
+
+  <form method="POST" action="/event/{{ eventsData._id }}/delete">
+    <a href="/event/{{ eventsData._id }}/delete">
+      <button type="submit" class="btn btn-primary">Delete</button>
+    </a>
+  </form>

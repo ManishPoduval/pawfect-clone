@@ -9,7 +9,7 @@ const PetProfileModel = require("../model/PetProfile.model");
 //PET PROFILES
 
 router.get("/petprofile/create", (req, res) => {
-    res.render("pet-profile-edit.hbs", { });
+    res.render("pet-profile-edit.hbs", { isEdit: false });
 });
 
 router.post("/petprofile/create", (req, res) => {
@@ -63,6 +63,22 @@ router.get("/petprofile/:id", (req, res) => {
     });
 });
 
+router.get("/petprofile/:id/picture", (req, res) => {
+  const { id } = req.params;
+
+  PetProfileModel.findById(id)
+    .then((petProfileData) => {
+
+      res.write(petProfileData.petPicture.data);
+      res.end();
+
+    })
+    .catch((err) => {
+      console.log("There is an error", err);
+    });
+});
+
+
 router.get("/petprofile/:id/edit", (req, res) => {
   const { id } = req.params;
 
@@ -73,7 +89,7 @@ router.get("/petprofile/:id/edit", (req, res) => {
         JSON.stringify(req.session.loggedInUser._id) ===
         JSON.stringify(petProfileData.user._id)
       )) {
-        res.render("pet-profile-edit.hbs", { petProfileData, user: true});
+        res.render("pet-profile-edit.hbs", { petProfileData, user: true, isEdit: true});
       } else {
         res.render("pet-profile-edit.hbs", { petProfileData });
       }
@@ -88,7 +104,12 @@ router.post("/petprofile/:id/edit", (req, res) => {
 
   // findByIdAndUpdate will use the information passed from the request body (create event form) to update the event
   PetProfileModel.findByIdAndUpdate(id, { $set: req.body })
-    .then((event) => {
+    .then((resultPetProfile) => {
+
+      resultPetProfile.petPicture.data = req.files.petPicture.data;
+      resultPetProfile.petPicture.contentType = req.files.petPicture.mimetype;
+      resultPetProfile.save();
+
       res.redirect("/petprofile/" + id + '/edit');
     })
     .catch((err) => {
