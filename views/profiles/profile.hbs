@@ -1,5 +1,9 @@
+{{#if myProfile}}
 <h1>Hi {{userData.name}}!</h1>
-Location: {{userData.location}}
+{{else}}
+<h1>{{userData.name}}</h1>
+{{/if}}
+<p>Location: {{userData.location}}</p>
 <br>
 {{#if petData}}
 <div style="margin: 12px">

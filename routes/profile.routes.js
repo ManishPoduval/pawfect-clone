@@ -12,7 +12,7 @@ router.get("/profile", (req, res) => {
       res.render("profiles/profile", { userData, myProfile: true, petData });
     })
     .catch((err) => {
-      console.log("failed to add pet", err)
+      console.log("failed to add pet", err);
     });
   // res.render("profiles/profile", { userData, myProfile:true });
 });
