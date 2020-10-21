@@ -85,6 +85,39 @@ main {
   main p {
     max-width: 560px; }
 
+.event-details-box {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  list-style: none;
+  margin-bottom: 40px;
+  box-shadow: 0 7px 15px 6px #adabab;
+  flex-grow: 1;
+  flex-basis: 0%;
+  width: 400px;
+  border-radius: 3px;
+  padding: 24px; }
+  .event-details-box span {
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    margin-right: 4px;
+    color: #aaa; }
+
+.event-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style: none; }
+  .event-section .event-img {
+    margin-right: 30px; }
+
+.event-details-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
 ul.upcoming-events {
   display: flex;
   flex-wrap: wrap;
@@ -108,9 +141,15 @@ ul.upcoming-events {
         text-align: center;
         margin-right: 4px;
         color: #aaa; }
+      ul.upcoming-events li > *.eventPicture {
+        display: flex;
+        justify-content: center; }
       ul.upcoming-events li > *.title {
         font-weight: bold;
         font-size: 16px; }
+      ul.upcoming-events li > *.more-info-button {
+        display: flex;
+        justify-content: center; }
     ul.upcoming-events li.placeholder {
       padding: 0;
       box-shadow: none;

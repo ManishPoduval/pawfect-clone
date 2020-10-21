@@ -1,3 +1,4 @@
+<article class='event-details-page'>
 <h1>{{ eventsData.title }}</h1>
 <h2>{{ eventsData.type }}</h2>
 <ul>
@@ -26,19 +27,24 @@ People joining:
 </ul> --}}
 <br>
 
-{{!-- <img class="event-picture"
-     src="{{ eventsData.picture }}"
-     alt= "{{ eventsData.title }} picture" > --}}
+<section class="event-details-box">
+<h2>Type of event: {{ eventsData.type }}</h2>
+<h4>Host: <a href="/profile/{{eventsDate.user._id}}">{{ eventsData.user.name }}</a> </h4>
+<p><span class="fas fa-calendar"></span>{{ eventsData.datePretty}} - <span class="fas fa-clock"></span>{{ eventsData.time}} - <span class="fas fa-map-marker"></span>{{ eventsData.location }}</p>
+</section>
 
 
+<section class="event-section">
+<div class="event-img">
+<img src={{ eventsData.eventPicture }} alt="Event Picture" width="100" height="100">
+</div>
+<div class="event-description" ><h2>Event Description</h2>
+<p>{{ eventsData.description }} </p>
+</div>
+</section>
 
 <div class="button-section">
-
-
-
-
-
-
+  
   {{#if user }}
   <a href="/event/{{ eventsData._id }}/edit">
     <button type="submit" class="btn btn-primary">Edit</button>
@@ -68,3 +74,20 @@ People joining:
     <button type="submit" class="btn btn-primary">All Events</button>
   </a>
 </div>
+</article>
+
+
+{{!-- <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+  <div class="card-header">Header</div>
+  <div class="card-body">
+    <h5 class="card-title">Info card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div> --}}
+
+
+
+
+
+
+

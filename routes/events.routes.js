@@ -39,7 +39,7 @@ router.get("/events", (req, res) => {
 
         let events = [];
         for (let eventData of eventsData) {
-          eventData.time = moment(eventData.date).format('HH:mm');
+          // eventData.time = moment(eventData.date).format('HH:mm');
           eventData.datePretty = moment(eventData.date).format('YYYY-MM-DD');
           events.push(eventData);
         }
@@ -91,12 +91,10 @@ router.get("/events", (req, res) => {
 });
 
 router.post("/create-event", (req, res) => {
-  const { title, location, date, type, description, eventPicture } = req.body;
+  const { title, location, date, time, type, description, eventPicture } = req.body;
+  console.log(req.body)
 
-  console.log('req.files');
-  console.log(req.files);
-
-  if (!title || !location || !date || !type) {
+  if (!title || !location || !date || !time || !type) {
     res.status(500).render("create-event.hbs", {
       message: "Please fill in all the fields!",
     });
@@ -113,15 +111,9 @@ router.post("/create-event", (req, res) => {
 
   //take the ID number of the currently logged in user
   let newUser = req.session.loggedInUser._id;
-
   EventModel.create({
-    title,
-    location,
-    date,
-    type,
+    ...req.body,
     user: newUser,
-    eventPicture,
-    description,
     attendEvent: newUser
     // attendEvent: [ mongoose.Schema.Types.ObjectId ]
   })
@@ -159,7 +151,10 @@ router.get("/event/:id/edit", (req, res, next) => {
 
   // findById method will obtain the information of the event to show in the update form view
   EventModel.findById(id).then((event) => {
-    // console.log(event.user);
+    // console.log(event);
+    // event.date = event.date.toString('YYYY-MM-DD');
+    event.datePretty = moment(event.date).format('YYYY-MM-DD');
+    // console.log(event.date)
     res.render("event-update-form.hbs", { event });
   });
 });
@@ -195,11 +190,6 @@ router.post("/event/:id/delete", (req, res, next) => {
 router.get("/event-details/:id", async(req, res) => {
   const { id } = req.params;
 
-
-
-
-
-
   //console.log(usersData);
 
   EventModel.findById(id)
@@ -209,13 +199,16 @@ router.get("/event-details/:id", async(req, res) => {
       // console.log(`THIS IS ${eventsData.user} DETAILS`);
       //console.log(req.session.loggedInUser._id === eventsData.user._id)
       //console.log(eventsData)
-      console.log(eventsData);
-
       let creator = null;
       if (req.session.loggedInUser && eventsData.user) {
         creator = (JSON.stringify(req.session.loggedInUser._id) ===
           JSON.stringify(eventsData.user._id))
       }
+      
+      
+        // eventsData.time = moment(eventsData.time).format('HH:mm');
+        eventsData.datePretty = moment(eventsData.date).format('YYYY-MM-DD');
+       
 
       console.log(eventsData.attendEvent);
 
@@ -247,21 +240,29 @@ router.get("/event-details/:id", async(req, res) => {
 
 
 //EVENT DETAILS
-router.get("/event-details/:id/picture", async(req, res) => {
-  const { id } = req.params;
+// router.get("/event-details/:id/picture", async(req, res) => {
+//   const { id } = req.params;
 
-  EventModel.findById(id)
-    .populate("user")
-    .then(async(eventsData) => {
+// <<<<<<< HEAD
+//   EventModel.findById(id)
+//     .populate("user")
+//     .then(async(eventsData) => {
+// =======
+//   EventModel.findByIdAndUpdate(id, {$push: { attendEvent: req.session.loggedInUser._id }})
+//   .then((event) => {
+    
+//     // event.time = moment(event.date).format('HH:mm');
+//     event.datePretty = moment(event.date).format('YYYY-MM-DD');
+// >>>>>>> 6e6248d01ba6723c458d32a9ee2cb70a2ac11b60
 
-      res.write(eventsData.eventPicture.data);
-      res.end();
+//       res.write(eventsData.eventPicture.data);
+//       res.end();
 
-    })
-    .catch((err) => {
-      console.log("There is an error", err);
-    });
-});
+//     })
+//     .catch((err) => {
+//       console.log("There is an error", err);
+//     });
+// });
 
 
 //REGISTER TO AN EVENT 
@@ -290,23 +291,24 @@ router.get("/event-cancel-registration/:id", (req, res, next) => {
   let userId = req.session.loggedInUser._id
 
   EventModel.findById(id)
-    .then((data) => {
-      let eventData = JSON.parse(JSON.stringify(data.attendEvent))
-      console.log("eventData 1 is:", eventData)
+  .then((data) => {
+    let eventData = JSON.parse(JSON.stringify(data.attendEvent))
+    console.log("eventData 1 is:", eventData)
 
-      let index = eventData.indexOf(userId)
-      console.log("index", index)
-      eventData.splice(index, 1)
-      console.log("eventData is:", eventData)
+    let index = eventData.indexOf(userId)
+    console.log("index", index)
+    eventData.splice(index, 1)
+    console.log("eventData is:", eventData)
 
-      EventModel.findByIdAndUpdate(id, { $set: { attendEvent: eventData } })
-        .then(() => {
-          res.render("event-cancel-registration.hbs", { data })
-        })
+    data.time = moment(data.date).format('HH:mm');
+    data.datePretty = moment(eventsData.date).format('YYYY-MM-DD');
+
+    EventModel.findByIdAndUpdate(id, {$set: {attendEvent: eventData}})
+    .then(() => {
+      res.render("event-cancel-registration.hbs", { data })
     })
-    .catch((err) => {
-      console.log(err)
-    })
+
+});
 
 });
 

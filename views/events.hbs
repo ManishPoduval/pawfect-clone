@@ -21,6 +21,7 @@
   {{#each events}}
   <li>
     
+      <div class="eventPicture"><img src={{eventPicture}} alt="Event Picture" width="100" height="100"></div>
       <div class="title">{{title}}</div>
       <div class="location"><span class="fas fa-map-marker"></span> {{location}}</div>
       <div class="date"><span class="fas fa-calendar"></span>{{datePretty}}</div>
@@ -28,7 +29,7 @@
       <div class="type"><span class="fas fa-question"></span>{{type}}</div>
 
 
-    <a class="event" href="/event-details/{{ this.id }}">
+    <a class="event more-info-button button-section" href="/event-details/{{ this.id }}">
       <button type="button" class="btn btn-primary">More Info</button>
     </a>
 
