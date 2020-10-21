@@ -58,18 +58,12 @@
 
   <main role="main">
     <section>
-      <h1>Meetpup
-      </h1>
-      <p>
-        <i>home page things</i>
-      </p>
+      <div id="calendar"></div>
     </section>
   </main>
-  <div>
-    <div id="mapid"></div>
-    <div id="calendar"></div>
-  </div>
 
+  <!--<div id="mapid"></div>-->
+ 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
     crossorigin="anonymous"></script>
@@ -81,14 +75,14 @@
     crossorigin="anonymous"></script>
 
 <script>
-  let mymap = L.map('mapid').setView([0, 0], 1); 
+ // let mymap = L.map('mapid').setView([0, 0], 1); 
   
-  const attribution = 
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+  //const attribution = 
+  //'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
   
-  const tileURL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-  const tiles = L.tileLayer(tileURL, {attribution}); 
-  tiles.addTo(mymap);
+  //const tileURL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+  ////const tiles = L.tileLayer(tileURL, {attribution}); 
+  //tiles.addTo(mymap);
   </script>
 </body>
 

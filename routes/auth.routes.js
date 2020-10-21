@@ -11,6 +11,7 @@ router.get("/signup", (req, res) => {
 });
 
 router.get("/signin", (req, res) => {
+
   req.app.locals.notUser = !req.session.loggedInUser;
   res.render("auth/signin.hbs");
 });
@@ -21,7 +22,7 @@ router.post("/signup", (req, res) => {
   if (!name || !location || !email || !password || !confirmpassword) {
     res
       .status(500)
-      .render("auth/signup.hbs", { message: "Please fill in all the fields!" });
+      .render("auth/signup.hbs", { message: "Please fill in all the fields!", request: req.body });
     return;
   }
 
@@ -31,7 +32,7 @@ router.post("/signup", (req, res) => {
   if (!emailReg.test(email)) {
     res
       .status(500)
-      .render("auth/signup.hbs", { message: "Please enter valid email" });
+      .render("auth/signup.hbs", { message: "Please enter valid email", request: req.body });
     return;
   }
 
@@ -44,7 +45,7 @@ router.post("/signup", (req, res) => {
       .render("auth/signup.hbs", {
         message:
           "Password must have one lowercase, one uppercase, a number, a special character and must be atleast 8 digits long",
-      });
+      request: req.body});
     return;
   }
 
@@ -126,10 +127,7 @@ router.post("/signin", (req, res) => {
 });
 
 
-router.get("/loggedout", (req, res) => {
-  req.app.locals.notUser = !req.session.loggedInUser;
-  res.render("auth/logout.hbs");
-});
+
 
 
 
@@ -137,14 +135,20 @@ router.get("/loggedout", (req, res) => {
 //PRIVATE ROUTES
 
 router.use((req, res, next) => {
+
   if (req.session.loggedInUser) {
     // if there's user in the session user is logged in
-    req.app.locals.notUser = !req.session.loggedInUser;
     next();
   } else {
     res.redirect("/signin");
   }
 });
+
+
+router.get('/dummy', (req, res) => {
+  res.render('dummy.hbs', { name: req.session.loggedInUser.name });
+});
+
 
 router.get('/logout', (req, res) => {
   req.session.destroy((err) => {
@@ -155,5 +159,9 @@ router.get('/logout', (req, res) => {
   });
 });
 
+router.get("/loggedout", (req, res) => {
+  req.app.locals.notUser = !req.session.loggedInUser;
+  res.render("auth/logout.hbs");
+});
 
 module.exports = router;

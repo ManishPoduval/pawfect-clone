@@ -1,21 +1,34 @@
 {{!-- //Signup for - always method=POST - action=/signup - name attribute for the DB - Submit button --}}
 <h1>Upcoming events</h1>
-<ul>
+<ul class="upcoming-events">
   {{#each events}}
-  <li>{{date}} - {{title}} - {{type}} - {{location}}</li>
-  <br>
-  <div class="button-section">
-    <a href="/event-details/{{ this.id }}">
-      <button type="button" class="btn btn-primary">More Details</button>
+  <li>
+    
+      <div class="title">{{title}}</div>
+      <div class="location"><span class="fas fa-map-marker"></span> {{location}}</div>
+      <div class="date"><span class="fas fa-calendar"></span>{{datePretty}}</div>
+      <div class="time"><span class="fas fa-clock"></span>{{time}}</div>
+      <div class="type"><span class="fas fa-question"></span>{{type}}</div>
+
+
+    <a class="event" href="/event-details/{{ this.id }}">
+      <button type="button" class="btn btn-primary">More Info</button>
     </a>
-    <br>
-    <br>
-    {{!-- <a href="/event-registration/{{ this._id }}">
+
+    <a href="/event-registration/{{ this._id }}">
       <button type="button" class="btn btn-primary">Register Now</button>
-    </a> --}}
-    <br>
-    <br>
+    </a>
+
+  </li>
   {{/each}}
+  <li class="placeholder"></li>
+  <li class="placeholder"></li>
+  <li class="placeholder"></li>
+  <li class="placeholder"></li>
+  <li class="placeholder"></li>
+  <li class="placeholder"></li>
+  <li class="placeholder"></li>
+  <li class="placeholder"></li>
 </ul>
 
 {{#if registrationMessage}}

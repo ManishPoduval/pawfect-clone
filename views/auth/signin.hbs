@@ -1,6 +1,7 @@
 <h1>Welcome back!</h1>
 
 <form method="POST" action="/signin">
+
   <div class="field">
     <label>Email</label>
     <div class="input"><input type="email" name="email" placeholder="Enter your email"  ></div>
@@ -12,6 +13,8 @@
   </div>
 
   <button type="submit" >Sign In</button>
+
+  <p>Dont have an account yet? <a href="/signup">Create one, it's free!</a></p>
 </form>
 
 {{#if message}}
