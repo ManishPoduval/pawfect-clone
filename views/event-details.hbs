@@ -6,11 +6,16 @@
 <p><span class="fas fa-calendar"></span>{{ eventsData.datePretty}} - <span class="fas fa-clock"></span>{{ eventsData.time}} - <span class="fas fa-map-marker"></span>{{ eventsData.location }}</p>
 </div>
 <br>
-<h2>Event Description</h2>
-<p>{{ eventsData.description }} </p>
-<br>
+
+<section class="event-section">
+<div class="event-img">
 <img src={{ eventsData.eventPicture }} alt="Event Picture" width="100" height="100">
-<br>
+</div>
+<div class="event-description" ><h2>Event Description</h2>
+<p>{{ eventsData.description }} </p>
+</div>
+</section>
+
 
 {{!-- <h4>TODO For Event Details</h4>
 <ul>

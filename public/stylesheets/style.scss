@@ -119,6 +119,19 @@ main {
     max-width: 560px;
   }
 }
+
+
+.event-section{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style: none;
+
+  .event-img {
+    margin-right: 30px;
+  
+  }
+}
 .event-details-box{
   display: flex;
   flex-direction: column;

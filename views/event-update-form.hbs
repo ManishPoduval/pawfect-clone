@@ -13,12 +13,12 @@
 
   <div class="field">
     <label>Date</label>
-    <div class="input"><input value="{{event.date}}" type="date" name="date"  ></div>
+    <div class="input"><input value="{{event.datePretty}}" type="date" name="date"  ></div>
   </div>
 
   <div class="field">
     <label>Time</label>
-    <div class=""> <input type="time" id="appt" name="time"  min="00:00" max="23:59"></div>
+    <div class=""> <input value="{{event.time}}" type="time" id="appt" name="time"  min="00:00" max="23:59"></div>
   </div>
 
   <div class="field">
@@ -34,8 +34,8 @@
 <div class="field">
     <label>Description</label>
     <div class="input">
-      <textarea value="{{event.description}}" class="description-box" name="description" cols="40"
-        rows="5"></textarea>
+      <textarea  class="description-box" name="description" cols="40"
+        rows="5">{{event.description}}</textarea>
     </div>
   </div>
 

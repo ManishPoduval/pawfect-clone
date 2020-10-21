@@ -91,7 +91,10 @@ router.get("/event/:id/edit", (req, res, next) => {
 
   // findById method will obtain the information of the event to show in the update form view
   EventModel.findById(id).then((event) => {
-    // console.log(event.user);
+    // console.log(event);
+    // event.date = event.date.toString('YYYY-MM-DD');
+    event.datePretty = moment(event.date).format('YYYY-MM-DD');
+    // console.log(event.date)
     res.render("event-update-form.hbs", { event });
   });
 });
