@@ -128,16 +128,11 @@ router.post("/signin", (req, res) => {
 
 
 
-
-
-
-
 //PRIVATE ROUTES
 
 router.use((req, res, next) => {
-
   if (req.session.loggedInUser) {
-    // if there's user in the session user is logged in
+    req.app.locals.notUser = !req.session.loggedInUser;
     next();
   } else {
     res.redirect("/signin");

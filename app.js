@@ -63,6 +63,8 @@ app.use(session({
 app.locals.title = 'Meet Pup';
 
 
+const apiRoutes = require("./routes/api.routes");
+app.use("/", apiRoutes);
 
 const index = require('./routes/index');
 app.use('/', index);
@@ -82,7 +84,5 @@ app.use("/", petProfileRoutes);
 const messageRoutes = require("./routes/message.routes");
 app.use("/", messageRoutes);
 
-const apiRoutes = require("./routes/api.routes");
-app.use("/", apiRoutes);
 
 module.exports = app;

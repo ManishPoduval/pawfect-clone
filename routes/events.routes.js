@@ -8,9 +8,6 @@ const EventModel = require("../model/Event.model");
 
 
 
-
-
-
 router.get("/create-event", (req, res) => {
   res.render("create-event.hbs");
 });
