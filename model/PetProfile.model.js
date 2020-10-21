@@ -6,13 +6,20 @@ const petProfileSchema = new Schema({
   name: {
     type: Schema.Types.String
   }, 
+  description: {
+    type: Schema.Types.String
+  }, 
   birthYear: {
     type: Schema.Types.Number
   },
   user: { //this is the key name in the evnt model
     type: mongoose.Schema.Types.ObjectId, 
     ref: "User"//refers to the collection name
-  }
+  },
+  petPicture: {
+    data: Buffer, 
+    contentType: String
+  }, 
 }, { timestamps: true } //find out when booking happened
 );
 

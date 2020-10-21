@@ -1,6 +1,6 @@
 <h3>Edit your profile</h3>
 
-<form method="POST" action="/profile/edit">
+<form method="POST" action="/profile/edit" enctype="multipart/form-data">
   <label>Name</label>
   <input type="text" name="name" value="{{userData.name}}" >
   <br>
@@ -10,6 +10,9 @@
   <label>Email</label>
   <input type="email" name="email" value="{{userData.email}}" >
    <br>
+  <label>Change avatar</label>
+  <input type="file" name="avatarPicture" >
+  <br >
   <button type="submit" >Edit profile</button>
 </form>
 

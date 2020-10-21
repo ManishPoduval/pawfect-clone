@@ -39,10 +39,30 @@ router.get("/profile/edit/password", (req, res) => {
   res.render("profiles/edit-password");
 });
 
+router.get("/profile/:id/picture", (req, res) => {
+  const { id } = req.params;
+
+  UserModel.findById(id)
+    .then((userData) => {
+
+      res.write(userData.avatarPicture.data);
+      res.end();
+
+    })
+    .catch((err) => {
+      console.log("There is an error", err);
+    });
+});
+
 router.post("/profile/edit", (req, res) => {
   let userId = req.session.loggedInUser._id;
-  UserModel.findByIdAndUpdate(userId, req.body)
-    .then(() => {
+  UserModel.findByIdAndUpdate(userId, { $set: req.body })
+    .then((resultUser) => {
+
+      //resultUser.avatarPicture.data = req.files.avatarPicture.data;
+      //resultUser.avatarPicture.contentType = req.files.avatarPicture.mimetype;
+      //resultUser.save();
+
       UserModel.findById(userId)
         .then((data) => {
           req.session.loggedInUser = data;

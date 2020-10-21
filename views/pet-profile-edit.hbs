@@ -3,7 +3,11 @@
 
 {{!-- //Signup for - always method=POST - action=/signup - name attribute for the DB - Submit button --}}
 
-<form method="POST" action="/petprofile/create">
+{{#if isEdit}}
+<form method="POST" action="/petprofile/{{petProfileData._id}}/edit" enctype="multipart/form-data">
+{{else}}
+<form method="POST" action="/petprofile/create" enctype="multipart/form-data">
+{{/if}}
 
   <div class="field">
     <label>Name</label>
@@ -15,8 +19,22 @@
     <div class="input"><input type="text" name="birthYear" placeholder="Birth year" value="{{petProfileData.birthYear}}"></div>
   </div>
 
+  <div class="field">
+    <label>Description</label>
+    <div class="input">
+      <textarea value="{{petProfileData.description}}" class="description-box" name="description" cols="40"
+        rows="5"></textarea>
+    </div>
+  </div>
+
+  <div>
+    <label for="avatar">Choose your pet's photo</label>
+    <br>
+    <input type="file" id="downloadeventpic" name="petPicture" accept="image/png, image/jpeg">
+  </div>
+
   <br>
-  <button type="submit">Create pet profile</button>
+  <button type="submit">Update pet profile</button>
 </form>
 
 {{#if message}}
