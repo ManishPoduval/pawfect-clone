@@ -13,33 +13,71 @@ router.get("/create-event", (req, res) => {
 });
 
 router.get("/events", (req, res) => {
-
-  EventModel.find({ date: { $gte: new Date() } }, null, {
-    sort: { date: "asc" },
-  })
-    .then((eventsData) => {
-      // console.log("req.session.loggedInUser._id is: ", req.session.loggedInUser._id)
-      // console.log("eventsData[0].user is: ", eventsData[0].user);
-
-      let events = [];
-      for (let eventData of eventsData) {
-        eventData.time = moment(eventData.date).format('HH:mm');
-        eventData.datePretty = moment(eventData.date).format('YYYY-MM-DD');
-        events.push(eventData);
-      }
-
-      console.log(events);
-      
-      res.render("events.hbs", { events: events });
-
+  console.log(req.query);
+  let dbQuery = [];
+  // if (req.query) {
+    if(req.query){
+      dbQuery = Object.keys(req.query);
+    }
+    if(dbQuery == []) dbQuery = ["Active", "Training", "Relaxed meetup", "Socialization"];
+    EventModel.find({ $and: [{ date: { $gte: new Date() }, type: { $in: dbQuery } }] }, null, {
+      sort: { date: "asc" },
     })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).render("auth/signin.hbs", {
-        //redirect to somewhereelse
-        message: "Fail to fetch user information",
+      .then((eventsData) => {
+        // console.log("req.session.loggedInUser._id is: ", req.session.loggedInUser._id)
+        // console.log("eventsData[0].user is: ", eventsData[0].user);
+
+        let events = [];
+        for (let eventData of eventsData) {
+          eventData.time = moment(eventData.date).format('HH:mm');
+          eventData.datePretty = moment(eventData.date).format('YYYY-MM-DD');
+          events.push(eventData);
+        }
+
+        // console.log(events);
+
+        res.render("events.hbs", { events: events });
+
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).render("auth/signin.hbs", {
+          //redirect to somewhereelse
+          message: "Fail to fetch user information",
+        });
       });
-    });
+  // }
+
+  // else {
+  //   EventModel.find({ date: { $gte: new Date() } }, null, {
+  //     sort: { date: "asc" },
+  //   })
+  //     .then((eventsData) => {
+  //       // console.log("req.session.loggedInUser._id is: ", req.session.loggedInUser._id)
+  //       // console.log("eventsData[0].user is: ", eventsData[0].user);
+
+  //       let events = [];
+  //       for (let eventData of eventsData) {
+  //         eventData.time = moment(eventData.date).format('HH:mm');
+  //         eventData.datePretty = moment(eventData.date).format('YYYY-MM-DD');
+  //         events.push(eventData);
+  //       }
+
+  //       // console.log(events);
+
+  //       res.render("events.hbs", { events: events });
+
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //       res.status(500).render("auth/signin.hbs", {
+  //         //redirect to somewhereelse
+  //         message: "Fail to fetch user information",
+  //       });
+  //     });
+  // }
+
+
 });
 
 router.post("/create-event", (req, res) => {
@@ -70,12 +108,12 @@ router.post("/create-event", (req, res) => {
     type,
     user: newUser,
     eventPicture,
-    description, 
+    description,
     attendEvent: newUser
     // attendEvent: [ mongoose.Schema.Types.ObjectId ]
   })
     .then(() => {
-      res.redirect("/");
+      res.redirect("/events");
     })
     .catch((err) => {
       console.log("Failled to create event in DB", err);
@@ -138,23 +176,23 @@ router.get("/event-details/:id", (req, res) => {
       // console.log(`THIS IS ${eventsData.user} DETAILS`);
       //console.log(req.session.loggedInUser._id === eventsData.user._id)
       //console.log(eventsData)
-    console.log(eventsData);
+      console.log(eventsData);
 
       let creator = null;
       if (req.session.loggedInUser && eventsData.user) {
         creator = (JSON.stringify(req.session.loggedInUser._id) ===
-        JSON.stringify(eventsData.user._id))
+          JSON.stringify(eventsData.user._id))
       }
 
-      let attendee = false; 
+      let attendee = false;
 
-      for (let i = 0; i < eventsData.attendEvent.length; i++){
+      for (let i = 0; i < eventsData.attendEvent.length; i++) {
         if (JSON.stringify(eventsData.attendEvent[i]) === JSON.stringify(req.session.loggedInUser._id)) {
-          attendee = true; 
-          break
+          attendee = true;
+          break;
         }
       }
-      res.render("event-details.hbs", { eventsData, user: creator, attendee});      // if (
+      res.render("event-details.hbs", { eventsData, user: creator, attendee });      // if (
       //   JSON.stringify(req.session.loggedInUser._id) ===
       //   JSON.stringify(eventsData.user._id)
       // ) {
@@ -173,16 +211,16 @@ router.get("/event-details/:id", (req, res) => {
 router.get("/event-registration/:id", (req, res, next) => {
   const { id } = req.params;
   console.log("inside event registration");
-  EventModel.findByIdAndUpdate(id, {$push: { attendEvent: req.session.loggedInUser._id }})
-  .then((event) => {
-    console.log("Registered to Event: ", event);
-    res.render("event-registration.hbs", { event });
-  })
-  .catch((err) => {
-    console.log("There is an error", err);
-    res.redirect("/events"); /*, { registrationMessage: "Sorry, we were unable to register you for the event. You may try again later." });*/
-  });
-}); 
+  EventModel.findByIdAndUpdate(id, { $push: { attendEvent: req.session.loggedInUser._id } })
+    .then((event) => {
+      console.log("Registered to Event: ", event);
+      res.render("event-registration.hbs", { event });
+    })
+    .catch((err) => {
+      console.log("There is an error", err);
+      res.redirect("/events"); /*, { registrationMessage: "Sorry, we were unable to register you for the event. You may try again later." });*/
+    });
+});
 
 
 
@@ -195,24 +233,24 @@ router.get("/event-cancel-registration/:id", (req, res, next) => {
   let userId = req.session.loggedInUser._id
 
   EventModel.findById(id)
-  .then((data) => {
-    let eventData = JSON.parse(JSON.stringify(data.attendEvent))
-    console.log("eventData 1 is:", eventData)
+    .then((data) => {
+      let eventData = JSON.parse(JSON.stringify(data.attendEvent))
+      console.log("eventData 1 is:", eventData)
 
-    let index = eventData.indexOf(userId)
-    console.log("index", index)
-    eventData.splice(index, 1)
-    console.log("eventData is:", eventData)
+      let index = eventData.indexOf(userId)
+      console.log("index", index)
+      eventData.splice(index, 1)
+      console.log("eventData is:", eventData)
 
-    EventModel.findByIdAndUpdate(id, {$set: {attendEvent: eventData}})
-    .then(() => {
-      res.render("event-cancel-registration.hbs", { data })
+      EventModel.findByIdAndUpdate(id, { $set: { attendEvent: eventData } })
+        .then(() => {
+          res.render("event-cancel-registration.hbs", { data })
+        })
     })
-  })
-  .catch((err) => {
-    console.log(err)
-  })
+    .catch((err) => {
+      console.log(err)
+    })
 
-}); 
+});
 
 module.exports = router;

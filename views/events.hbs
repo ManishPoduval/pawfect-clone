@@ -1,5 +1,22 @@
 {{!-- //Signup for - always method=POST - action=/signup - name attribute for the DB - Submit button --}}
 <h1>Upcoming events</h1>
+
+<div>
+  <b>Filter the events</b>
+  <form method="GET" action="/events">
+    <input type="checkbox" name="Active">
+    <label for="Active">Active</label>
+    <input type="checkbox" name="Training">
+    <label for="Training">Training</label>
+    <input type="checkbox" name="Relaxed meetup">
+    <label for="Relaxed meetup">Relaxed meetup</label>
+    <input type="checkbox" name="Socialization">
+    <label for="Socialization">Socialization</label>
+    <br/>
+    <button type="submit">Filter</button>
+  </form>
+</div>
+
 <ul class="upcoming-events">
   {{#each events}}
   <li>
@@ -14,10 +31,6 @@
     <a class="event" href="/event-details/{{ this.id }}">
       <button type="button" class="btn btn-primary">More Info</button>
     </a>
-
-    {{!-- <a href="/event-registration/{{ this._id }}">
-      <button type="button" class="btn btn-primary">Register Now</button>
-    </a> --}}
 
   </li>
   {{/each}}
