@@ -8,7 +8,7 @@ const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
-const fileUpload   = require('express-fileupload');
+// const fileUpload   = require('express-fileupload');
 
 
 require('./configs/db.config');
@@ -26,9 +26,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // Allow files to be uploaded
-app.use(fileUpload({
-  createParentPath: true
-}));
+// app.use(fileUpload({
+//   createParentPath: true
+// }));
 
 // Express View engine setup
 

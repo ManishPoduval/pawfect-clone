@@ -3,7 +3,7 @@ const router = express.Router();
 const UserModel = require("../model/User.model");
 var bcrypt = require("bcryptjs");
 const PetProfileModel = require("../model/PetProfile.model");
-
+const uploader = require('../configs/coudinary.config');
 
 router.get("/profile", (req, res) => {
   let userData = req.session.loggedInUser;
@@ -54,9 +54,15 @@ router.get("/profile/:id/picture", (req, res) => {
     });
 });
 
-router.post("/profile/edit", (req, res) => {
+router.post("/profile/edit", uploader.single("imageUrl"), (req, res) => {
   let userId = req.session.loggedInUser._id;
-  UserModel.findByIdAndUpdate(userId, { $set: req.body })
+
+  console.log('file is: ', req.file)
+  if (!req.file) {
+    next(new Error('No file uploaded!'));
+    return;
+  }
+  UserModel.findByIdAndUpdate(userId, { $set: {...req.body, avatar: req.file.path} })
     .then((resultUser) => {
 
       //resultUser.avatarPicture.data = req.files.avatarPicture.data;
